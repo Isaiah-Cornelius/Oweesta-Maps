@@ -32,7 +32,7 @@ const config = {
   filters: [
     {
       type: 'dropdown',
-      title: 'Lending Products',
+      title: 'Lending Products:',
       columnHeader: 'Lending_Products_Filter',
       listItems: [
         'Agriculture',

@@ -31,12 +31,19 @@ function createPopup(currentFeature) {
   if (popups[0]) popups[0].remove();
 
   // Create a variable to hold the html
-  let html = '';
+  let html = '<div>';
+
+  function addHeader(str) {
+    html += '<div class="popupContent"><h3 class="header">' + str + '</h3>';
+  }
+
+  function closeHeader() {
+    html += '</div>';
+  }
 
   // Create a function to add Org info to the popup
   function buildOrgHeader() {
-    html +=
-      '<h3>' + currentFeature.properties[config.popupLocation_Name] + '</h3>';
+    addHeader(currentFeature.properties[config.popupLocation_Name]);
     if (currentFeature.properties[config.popupEmergingNCDFI] === 'Yes') {
       html += '<p> Emerging NCDFI </p>';
     }
@@ -51,15 +58,17 @@ function createPopup(currentFeature) {
         currentFeature.properties[config.popupWebsite] +
         '</a>';
     }
+    closeHeader();
   }
 
   // Create a function to check an array of objects for properties. If the checked property is present, add html to the variable.
   function buildContactInfoHTML() {
-    if (currentFeature.properties[config.popupContactInfo].length > 0) {
+    if (currentFeature.properties[config.popupContactInfo]) {
       // Use JSON parse to convert csv text (in array of objects format) to an array of objects
       const contactsArray = JSON.parse(
         currentFeature.properties[config.popupContactInfo],
       );
+      addHeader('Contact');
       for (let i = 0; i < contactsArray.length; i++) {
         if (Object.prototype.hasOwnProperty.call(contactsArray[i], 'name')) {
           html += '<h3> ' + contactsArray[i].name + ' </h3>';
@@ -81,21 +90,24 @@ function createPopup(currentFeature) {
             ' </a><br>';
         }
       }
+      closeHeader();
     }
   }
 
   // Create a function to add the org lending info
   function buildOrgLendingInfo() {
+    addHeader('Lending Information');
     html +=
-      '<h3> Service Area </h3><p> ' +
+      '<h3> Mission Statement </h3><p>' +
+      currentFeature.properties[config.popupMissionStatement] +
+      '</p><h3> Service Area </h3><p> ' +
       currentFeature.properties[config.popupServiceArea] +
       '</p><h3> Target Market </h3><p>' +
       currentFeature.properties[config.popupTargetMarket] +
-      '</p><h3> Mission Statement </h3><p>' +
-      currentFeature.properties[config.popupMissionStatement] +
       '</p><h3>Engaged in Participation Lending? </h3><p>' +
       currentFeature.properties[config.popupParticipationLending] +
       '</p>';
+    closeHeader();
   }
 
   // Create a function to create an unordered list and add it to the html variable
@@ -105,7 +117,8 @@ function createPopup(currentFeature) {
       const lendingProductsArray = JSON.parse(
         currentFeature.properties[config.popupLendingProducts],
       );
-      html += '<h3>Lending Products</h3><ul>';
+      addHeader('Lending Products');
+      html += '<ul>';
       for (let i = 0; i < lendingProductsArray.length; i++) {
         html += '<li>  &bull; ' + lendingProductsArray[i] + '</li>';
       }
@@ -115,38 +128,50 @@ function createPopup(currentFeature) {
 
   // Create a function to list the org assets, finding needs, and min/max investment size
   function buildAssetFundingMinMax() {
-    html +=
-      '<h3> Current Asset Size </h3><p>' +
-      currentFeature.properties[config.popupCurrentAssetSize] +
-      '</p>';
-    if (currentFeature.properties[config.popupFundingNeeds].length > 0) {
+    if (currentFeature.properties[config.popupCurrentAssetSize]) {
+      addHeader('Current Asset Size');
       html +=
-        '<h3> Funding Needs: </h3><p>' +
-        currentFeature.properties[config.popupFundingNeeds] +
+        '<p>' +
+        currentFeature.properties[config.popupCurrentAssetSize] +
         '</p>';
+      closeHeader();
     }
-    if (currentFeature.properties[config.popupMin].length > 0) {
-      html +=
-        '<h3> Minimum Investment Amount: </h3><p>' +
-        currentFeature.properties[config.popupMin] +
-        '</p>';
-    }
-    if (currentFeature.properties[config.popupMax].length > 0) {
-      html +=
-        '<h3> Maximum Investment Amount: </h3><p>' +
-        currentFeature.properties[config.popupMax] +
-        '</p>';
+    if (
+      currentFeature.properties[config.popupFundingNeeds] ||
+      currentFeature.properties[config.popupMin] ||
+      currentFeature.properties[config.popupMax]
+    ) {
+      addHeader('Investment Information');
+      if (currentFeature.properties[config.popupFundingNeeds]) {
+        html +=
+          '<h3> Funding Needs: </h3><p>' +
+          currentFeature.properties[config.popupFundingNeeds] +
+          '</p>';
+      }
+      if (currentFeature.properties[config.popupMin]) {
+        html +=
+          '<h3> Minimum Investment Amount: </h3><p>' +
+          currentFeature.properties[config.popupMin] +
+          '</p>';
+      }
+      if (currentFeature.properties[config.popupMax]) {
+        html +=
+          '<h3> Maximum Investment Amount: </h3><p>' +
+          currentFeature.properties[config.popupMax] +
+          '</p>';
+      }
+      closeHeader();
     }
   }
 
   // Create a function to check an array of objects for properties. If the checked property is present, add html to the variable.
   function buildInvestmentTermsInfoHTML() {
-    if (currentFeature.properties[config.popupInvestmentTerms].length > 0) {
+    if (currentFeature.properties[config.popupInvestmentTerms]) {
       // Use JSON parse to convert csv text (in array of objects format) to an array of objects
       const popupInvestmentTermsArray = JSON.parse(
         currentFeature.properties[config.popupInvestmentTerms],
       );
-      html += '<h3> Investment Terms </h3>';
+      addHeader('Investment Terms');
       for (let i = 0; i < popupInvestmentTermsArray.length; i++) {
         if (
           Object.prototype.hasOwnProperty.call(
@@ -174,43 +199,52 @@ function createPopup(currentFeature) {
           html += '<p> Term: ' + popupInvestmentTermsArray[i].Term + ' </p>';
         }
       }
+      closeHeader();
     }
-
-    html +=
-      '<h3> Organization Needs Operational Capital? </h3><p>' +
-      currentFeature.properties[config.popupNeedsOperationalCapital] +
-      '</p>';
+    if (currentFeature.properties[config.popupNeedsOperationalCapital]) {
+      addHeader('Organization Needs Operational Capital?');
+      html +=
+        '<p>' +
+        currentFeature.properties[config.popupNeedsOperationalCapital] +
+        '</p>';
+    }
   }
 
   // Create a function to create an unordered list and add it to the html variable
   function buildSpecialCertsList() {
-    if (currentFeature.properties[config.popupSpecialCerts].length > 0) {
+    if (currentFeature.properties[config.popupSpecialCerts]) {
       // Use JSON parse to convert csv text (in array of strings format) to an array of strings
       const specialCertsArray = JSON.parse(
         currentFeature.properties[config.popupSpecialCerts],
       );
-      html += '<h3>Special Certificates/Certifications</h3><ul>';
+      addHeader('Special Certificates/Certifications');
+      html += '<ul>';
       for (let i = 0; i < specialCertsArray.length; i++) {
         html += '<li>  &bull; ' + specialCertsArray[i] + '</li>';
       }
       html += '</ul>';
+      closeHeader();
     }
   }
 
   // Create a function to create an unordered list and add it to the html variable
   function buildSpecialProjectsList() {
-    if (currentFeature.properties[config.popupSpecialProjects].length > 0) {
+    if (currentFeature.properties[config.popupSpecialProjects]) {
       // Use JSON parse to convert csv text (in array of strings format) to an array of strings
       const specialProjectsArray = JSON.parse(
         currentFeature.properties[config.popupSpecialProjects],
       );
-      html += '<h3>Special Projects</h3><ul>';
+      addHeader('Special Projects');
+      html += '<ul>';
       for (let i = 0; i < specialProjectsArray.length; i++) {
         html += '<li>  &bull; ' + specialProjectsArray[i] + '</li>';
       }
       html += '</ul>';
+      closeHeader();
     }
   }
+
+  html += '</div>';
 
   // Call the build functions in order to load the html variable
   buildOrgHeader();

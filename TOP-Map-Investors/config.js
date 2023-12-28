@@ -7,7 +7,7 @@ const config = {
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
   CSV: './12.19.2023TopMapInvestors.csv',
   center: [-114, 35],
-  zoom: 2,
+  zoom: 1,
   title: 'Investor Locator',
   description: 'Investors interested in providing capital to NCDFIs',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],

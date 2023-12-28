@@ -7,7 +7,7 @@ const config = {
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
   CSV: './12.19.2023TopMapNCDFIs.csv',
   center: [-114, 35],
-  zoom: 2,
+  zoom: 1,
   title: 'Native CDFI Locator',
   description: 'Native Community Development Financial Institutions',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],

@@ -31,12 +31,19 @@ function createPopup(currentFeature) {
   if (popups[0]) popups[0].remove();
 
   // Create a variable to hold the html
-  let html = '';
+  let html = '<div>';
+
+  function addHeader(str) {
+    html += '<div class="popupContent"><h3 class="header">' + str + '</h3>';
+  }
+
+  function closeHeader() {
+    html += '</div>';
+  }
 
   // Create a function to add Org info to the popup
   function buildOrgHeader() {
-    html +=
-      '<h3>' + currentFeature.properties[config.popupLocation_Name] + '</h3>';
+    addHeader(currentFeature.properties[config.popupLocation_Name]);
     if (currentFeature.properties[config.popupWebsite]) {
       html +=
         '<a href="' +
@@ -57,6 +64,7 @@ function createPopup(currentFeature) {
         currentFeature.properties[config.popupMissionStatement] +
         '</p>';
     }
+    closeHeader();
   }
 
   // Create a function to check an array of objects for properties. If the checked property is present, add html to the variable.
@@ -66,6 +74,7 @@ function createPopup(currentFeature) {
       const contactsArray = JSON.parse(
         currentFeature.properties[config.popupContactInfo],
       );
+      addHeader('Contact');
       for (let i = 0; i < contactsArray.length; i++) {
         if (Object.prototype.hasOwnProperty.call(contactsArray[i], 'name')) {
           html += '<h3> ' + contactsArray[i].name + ' </h3>';
@@ -87,6 +96,7 @@ function createPopup(currentFeature) {
             ' </a><br>';
         }
       }
+      closeHeader();
     }
   }
 
@@ -97,11 +107,13 @@ function createPopup(currentFeature) {
       const investmentTypesArray = JSON.parse(
         currentFeature.properties[config.popupInvestmentsType],
       );
-      html += '<h3>Investment Types</h3><ul>';
+      addHeader('Investment Types');
+      html += '<ul>';
       for (let i = 0; i < investmentTypesArray.length; i++) {
         html += '<li>  &bull; ' + investmentTypesArray[i] + '</li>';
       }
       html += '</ul>';
+      closeHeader();
     }
   }
 
@@ -112,25 +124,28 @@ function createPopup(currentFeature) {
       const focusAreaArray = JSON.parse(
         currentFeature.properties[config.popupFocusAreas],
       );
-      html += '<h3>Focus Areas</h3><ul>';
+      addHeader('Focus Areas');
+      html += '<ul>';
       for (let i = 0; i < focusAreaArray.length; i++) {
         html += '<li>  &bull; ' + focusAreaArray[i] + '</li>';
       }
       html += '</ul>';
+      closeHeader();
     }
   }
 
   // Create a function to add geographic info to the popup
   function buildGeographicAreasList() {
     if (currentFeature.properties[config.popupGeographicAreas]) {
+      addHeader('Geographic Areas');
       html +=
-        '<h3> Geographic Areas </h3><p> ' +
-        currentFeature.properties[config.popupGeographicAreas] +
-        '</p>';
+        '<p>' + currentFeature.properties[config.popupGeographicAreas] + '</p>';
+      closeHeader();
     }
   }
   // Create a function to add investment info info to the popup
   function buildInvestmentInfo() {
+    addHeader('Investment Information');
     if (
       currentFeature.properties[config.popupPairEquityOrGrantsWithInvestments]
     ) {
@@ -159,6 +174,7 @@ function createPopup(currentFeature) {
         currentFeature.properties[config.popupMax] +
         '</p>';
     }
+    closeHeader();
   }
 
   // Create a function to check an array of objects for properties. If the checked property is present, add html to the variable.
@@ -168,7 +184,7 @@ function createPopup(currentFeature) {
       const popupInvestmentTermsArray = JSON.parse(
         currentFeature.properties[config.popupInvestmentTerms],
       );
-      html += '<h3> Investment Terms </h3>';
+      addHeader('Investment Terms');
       for (let i = 0; i < popupInvestmentTermsArray.length; i++) {
         if (
           Object.prototype.hasOwnProperty.call(
@@ -196,6 +212,7 @@ function createPopup(currentFeature) {
           html += '<p> Term: ' + popupInvestmentTermsArray[i].Term + ' </p>';
         }
       }
+      closeHeader();
     }
   }
 

@@ -6,7 +6,7 @@ const config = {
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
   CSV: './12.19.2023TopMapNCDFIs.csv',
-  center: [-114, 35],
+  center: [-114, 40],
   zoom: 1,
   title: 'Native CDFI Locator',
   description: 'Native Community Development Financial Institutions',

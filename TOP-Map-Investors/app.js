@@ -25,6 +25,13 @@ function flyToLocation(currentFeature) {
   });
 }
 
+function flyToLocation2(currentFeature, zoom) {
+  map.flyTo({
+    center: currentFeature,
+    zoom: zoom,
+  });
+}
+
 function createPopup(currentFeature) {
   const popups = document.getElementsByClassName('mapboxgl-popup');
   /** Check if there is already a popup on the map and if so, remove it */
@@ -438,6 +445,30 @@ function applyFilters() {
         });
       }
       if (filter.type === 'select-one' && filter.value) {
+        if (filter.value.length === 2) {
+          const popups = document.getElementsByClassName('mapboxgl-popup');
+          if (popups[0]) popups[0].remove();
+          switch (filter.value) {
+            case 'CA':
+              flyToLocation2([-119.449444003504, 37.166098147632994], 4);
+              break;
+            case 'HI':
+              flyToLocation2([-157.14479404845895, 20.95370568127875], 4);
+              break;
+            case 'MN':
+              flyToLocation2([-94.32663165607144, 46.22603635718387], 4);
+              break;
+            case 'PA':
+              flyToLocation2([-77.80275114833739, 40.87497964639171], 4);
+              break;
+            case 'UT':
+              flyToLocation2([-111.68498927729787, 39.386650087399154], 4);
+              break;
+            case 'VT':
+              flyToLocation2([-72.6608398768863, 44.13736867151776], 4);
+              break;
+          }
+        }
         selectFilters.forEach((objs) => {
           Object.entries(objs).forEach(([, value]) => {
             if (value.includes(filter.value)) {

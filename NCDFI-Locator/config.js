@@ -6,7 +6,7 @@ const config = {
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
   CSV: './2023CertifiedNCDFIs.csv',
-  center: [-114, 35],
+  center: [-114, 40],
   zoom: 2,
   title: 'Native CDFI Locator',
   description:
@@ -39,7 +39,6 @@ const config = {
         'OR',
         'SD',
         'TX',
-        'VA',
         'WA',
         'WI',
         'WY',

@@ -25,6 +25,13 @@ function flyToLocation(currentFeature) {
   });
 }
 
+function flyToLocation2(currentFeature, zoom) {
+  map.flyTo({
+    center: currentFeature,
+    zoom: zoom,
+  });
+}
+
 function createPopup(currentFeature) {
   const popups = document.getElementsByClassName('mapboxgl-popup');
   /** Check if there is already a popup on the map and if so, remove it */
@@ -471,6 +478,48 @@ function applyFilters() {
         });
       }
       if (filter.type === 'select-one' && filter.value) {
+        if (filter.value.length === 2) {
+          const popups = document.getElementsByClassName('mapboxgl-popup');
+          if (popups[0]) popups[0].remove();
+          switch (filter.value) {
+            case 'AK':
+              flyToLocation2([-152.40446554840818, 61.36567109892427], 3);
+              break;
+            case 'AZ':
+              flyToLocation2([-111.65745782403418, 34.27183040786168], 4);
+              break;
+            case 'CO':
+              flyToLocation2([-105.54722741210203, 38.998104479921935], 4);
+              break;
+            case 'HI':
+              flyToLocation2([-157.14479404845895, 20.95370568127875], 5);
+              break;
+            case 'ID':
+              flyToLocation2([-114.18781727170995, 44.43023850218265], 4);
+              break;
+            case 'MI':
+              flyToLocation2([-84.60522407695213, 43.40798138830772], 4);
+              break;
+            case 'MT':
+              flyToLocation2([-110.05509437663794, 46.80329723930934], 4);
+              break;
+            case 'OK':
+              flyToLocation2([-97.49589787759658, 35.59184302360161], 4);
+              break;
+            case 'SD':
+              flyToLocation2([-100.42169239771226, 44.53038997805173], 4);
+              break;
+            case 'WA':
+              flyToLocation2([-120.52379077658205, 47.386523507229995], 4);
+              break;
+            case 'WI':
+              flyToLocation2([-90.1301753056949, 44.43829555020383], 4);
+              break;
+            case 'WY':
+              flyToLocation2([-107.67164247699101, 42.97203792100799], 4);
+              break;
+          }
+        }
         selectFilters.forEach((objs) => {
           Object.entries(objs).forEach(([, value]) => {
             if (value.includes(filter.value)) {

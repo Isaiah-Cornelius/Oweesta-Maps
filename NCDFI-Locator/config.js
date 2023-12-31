@@ -6,8 +6,8 @@ const config = {
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
   CSV: './2023CertifiedNCDFIs.csv',
-  center: [-114, 40],
-  zoom: 2,
+  center: [-117, 48],
+  zoom: 1,
   title: 'Native CDFI Locator',
   description:
     '2023 Certified Native Community Development Financial Institutions of the United States of America.',

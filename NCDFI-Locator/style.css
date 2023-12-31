@@ -6,7 +6,6 @@
     font-size: 12px;
     color: white;
     background-color: #64cbdb;
-
 }
 
 .theme{
@@ -28,6 +27,7 @@
     word-wrap: break-word;
     text-decoration: none;
     border-bottom: solid rgb(34, 33, 33, .3) 1px;
+    /* height: 97.5px; */
 }
 
 .listings .item:last-child {
@@ -77,7 +77,10 @@
     font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
     text-align: center;
     padding: 5;
-    width: 360px;
+    max-width: 85vw;
+    max-height: 50vh;
+    overflow-y: scroll;
+    overflow-x: scroll;
   }
 
 .mapboxgl-popup-close-button {

@@ -1,6 +1,36 @@
 /* global config csv2geojson turf Assembly $ */
 'use strict';
 
+// Create zoom variables
+let mapZoom;
+
+// Create a function to evaluate how large the map section is (subtract the Location List div) and set zoom values according to that size
+function setZoomVariables(windowWidth) {
+  let width = windowWidth;
+  if (width >= 800) {
+    width -= 360;
+  }
+  if (width <= 1000) {
+    mapZoom = -6e-6 * width ** 2 + 0.0093 * width - 1.3786;
+  } else {
+    mapZoom = -9e-7 * width ** 2 + 0.004 * width - 0.9097;
+  }
+}
+
+// Determine the window dimensions
+let windowWidth;
+
+function getWindowWidth() {
+  windowWidth = window.innerWidth;
+  setZoomVariables(windowWidth);
+}
+
+// Call the getWindowWidth function first to set the appropriate zoom for the map on page load
+getWindowWidth();
+
+// Evaluate the window dimensions on resize to keep appropriate zoom variable values
+window.onresize = getWindowWidth;
+
 mapboxgl.accessToken = config.accessToken;
 const columnHeaders = config.sideBarInfo;
 
@@ -14,7 +44,7 @@ const map = new mapboxgl.Map({
   container: 'map',
   style: config.style,
   center: config.center,
-  zoom: config.zoom,
+  zoom: mapZoom,
   transformRequest: transformRequest,
 });
 

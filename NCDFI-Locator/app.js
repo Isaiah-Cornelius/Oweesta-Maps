@@ -17,26 +17,33 @@ function setZoomVariables(windowWidth) {
   }
 }
 
-// Create a function to check if the listings have shifted to the bottom of the page
-function checkListingsLocation(windowWidth, windowHeight) {
+// Create a function to set the '#listings' div height
+function setListingsHeight(windowWidth, windowHeight) {
   const listings = document.getElementById('listings');
-  // Check if screen width is less than 800px (Listings breakpoint set to shift to bottom when screen width is less that 800px)
-  if (windowWidth < 800) {
-    // sidebarA div has the 'py12' class which adds 12px of padding to the top and bottom of the rendered body height; add 24 to the height var.
-    const sidebarADivHeight =
-      document.querySelector('#sidebarA').clientHeight + 24;
-    // listings div's parent's parent (grandparent?) has the 'viewport-third' class which sets the height at 33.3333vh; multiply the windowHeight by .333333 (1/3 of the viewheight) and subtract the sidebarADivHeight to get the properListingsDivHeight
-    const properListingsDivHeight = windowHeight * 0.333333 - sidebarADivHeight;
-    // Check if the 'viewport-twothirds' class is present; if so, remove it
-    if (listings.classList.contains('viewport-twothirds')) {
-      listings.classList.remove('viewport-twothirds');
-    }
-    // Set the listings div height to the properListingsDivHeight
-    listings.style.height = properListingsDivHeight + 'px';
-    // Check if the listings div needs the 'viewport-twothirds' class (if resizing from width < 800 to width >= 800)
-  } else if (!listings.classList.contains('viewport-twothirds')) {
-    listings.classList.add('viewport-twothirds');
+  // the 'viewport-twothirds' class does not always allow the '#listings' div to use all of the available vertical space when screen width is >= 800px.
+  // When screen width is < 800px, the listings shift to the bottom of the screen. This class makes the '#listings' div too large and listings are lost below the bottom of the screen when scrolling to the bottom of the div.
+  // Check if the 'viewport-twothirds' class is present; if so, remove it (or remove this if statement after removing this class from the '#listings' div in index.html)
+  if (listings.classList.contains('viewport-twothirds')) {
+    listings.classList.remove('viewport-twothirds');
   }
+  // '#sidebarA' div has the 'py12' class which adds 12px of padding to the top and bottom of the rendered body height that 'document.querySelector('#sidebarA').clientHeight' does not catch; add 24
+  const sidebarADivHeight =
+    document.querySelector('#sidebarA').clientHeight + 24;
+  let properListingsDivHeight;
+  // Check if the listings breakpoint is active (Listings breakpoint set to shift to bottom when screen width is less that 800px)
+  if (windowWidth < 800) {
+    // '#listings' div's parent's parent (grandparent?) has the 'viewport-third' class which sets the height at 33.3333vh; multiply the windowHeight by .333333 (1/3 of the viewheight) and subtract the sidebarADivHeight to get the properListingsDivHeight
+    properListingsDivHeight = windowHeight * 0.333333 - sidebarADivHeight;
+  } else {
+    // When the screen width is greater than 800px, the 'sidebarA' and 'listings' divs should use the entire view height
+    // when displayed on the left, 'sidebarA' div contains 'title' div and 'description' div that have margin and padding classes that 'document.querySelector('#sidebarA').clientHeight' does not catch
+    // 'title' div has the 'mb6' class which adds 6px bottom margin; subtract 6
+    // 'description' div has the 'py12' which adds 12px of padding to the top and bottom of the rendered body height; subtract 24
+    // -6 ('title') - 24 ('description) - 12 (leave 12px gap at bottom of the page) = -42
+    properListingsDivHeight = windowHeight - sidebarADivHeight - 42;
+  }
+  // Set the listings div height to the properListingsDivHeight
+  listings.style.height = properListingsDivHeight + 'px';
 }
 
 // Determine the window dimensions
@@ -44,7 +51,7 @@ function getWindowDimensions() {
   const windowWidth = window.innerWidth;
   const windowHeight = window.innerHeight;
   setZoomVariables(windowWidth);
-  checkListingsLocation(windowWidth, windowHeight);
+  setListingsHeight(windowWidth, windowHeight);
 }
 
 // Call the getWindowDimensions function first to set the appropriate variable values

@@ -1,6 +1,43 @@
 /* global config csv2geojson turf Assembly $ */
 'use strict';
 
+// Create a function to check if the listings have shifted to the bottom of the page
+function checkListingsLocation(windowWidth, windowHeight) {
+  const height = windowHeight;
+  const width = windowWidth;
+  const listings = document.getElementById('listings');
+  // Check if screen width is less than 800px (Listings breakpoint set to shift to bottom when screen width is less that 800px)
+  if (width < 800) {
+    // sidebarA div has the 'py12' class which adds 12px of padding to the top and bottom of the rendered body height; add 24 to the height var.
+    const sidebarADivHeight =
+      document.querySelector('#sidebarA').clientHeight + 24;
+    // listings div's parent's parent (grandparent?) has the 'viewport-third' class which sets the height at 33.3333vh; multiply the windowHeight by .333333 (1/3 of the viewheight) and subtract the sidebarADivHeight to get the properListingsDivHeight
+    const properListingsDivHeight = height * 0.333333 - sidebarADivHeight;
+    // Check if the 'viewport-twothirds' class is present; if so, remove it
+    if (listings.classList.contains('viewport-twothirds')) {
+      listings.classList.remove('viewport-twothirds');
+    }
+    // Set the listings div height to the properListingsDivHeight
+    listings.style.height = properListingsDivHeight + 'px';
+    // Check if the listings div needs the 'viewport-twothirds' class (if resizing from width < 800 to width >= 800)
+  } else if (!listings.classList.contains('viewport-twothirds')) {
+    listings.classList.add('viewport-twothirds');
+  }
+}
+
+// Determine the window dimensions
+function getWindowDimensions() {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  checkListingsLocation(windowWidth, windowHeight);
+}
+
+// Call the getWindowDimensions function first to set the appropriate variable values
+getWindowDimensions();
+
+// Evaluate the window dimensions on resize to keep appropriate variable values
+window.onresize = getWindowDimensions;
+
 mapboxgl.accessToken = config.accessToken;
 const columnHeaders = config.sideBarInfo;
 
@@ -288,8 +325,8 @@ function applyFilters() {
             }
           });
         });
-        let uniqueRemoveIds = [...new Set(removeIds)];
-        uniqueRemoveIds.forEach(function (id) {
+        const uniqueRemoveIds = [...new Set(removeIds)];
+        uniqueRemoveIds.forEach((id) => {
           const idx = filteredGeojson.features.findIndex(
             (f) => f.properties.id === id,
           );

@@ -180,6 +180,7 @@ function createPopup(currentFeature) {
         html += '<li>  &bull; ' + lendingProductsArray[i] + '</li>';
       }
       html += '</ul>';
+      closeHeader();
     }
   }
 
@@ -264,6 +265,7 @@ function createPopup(currentFeature) {
         '<p>' +
         currentFeature.properties[config.popupNeedsOperationalCapital] +
         '</p>';
+      closeHeader();
     }
   }
 

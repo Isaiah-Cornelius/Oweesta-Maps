@@ -5,20 +5,22 @@
 let mapZoom;
 
 // Create a function to evaluate how large the map section is (subtract the Location List div) and set zoom values according to that size
-function setZoomVariables(windowWidth) {
-  let width = windowWidth;
-  if (width >= 800) {
-    width -= 360;
+function setZoomVariables() {
+  let windowWidth = window.innerWidth;
+  if (windowWidth >= 800) {
+    windowWidth -= 360;
   }
-  if (width <= 1000) {
-    mapZoom = -6e-6 * width ** 2 + 0.0093 * width - 1.3786;
+  if (windowWidth <= 1000) {
+    mapZoom = -6e-6 * windowWidth ** 2 + 0.0093 * windowWidth - 1.3786;
   } else {
-    mapZoom = -9e-7 * width ** 2 + 0.004 * width - 0.9097;
+    mapZoom = -9e-7 * windowWidth ** 2 + 0.004 * windowWidth - 0.9097;
   }
 }
 
 // Create a function to set the '#listings' div height
-function setListingsHeight(windowWidth, windowHeight) {
+function setListingsHeight() {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
   const listings = document.getElementById('listings');
   // the 'viewport-twothirds' class does not always allow the '#listings' div to use all of the available vertical space when screen width is >= 800px.
   // When screen width is < 800px, the listings shift to the bottom of the screen. This class makes the '#listings' div too large and listings are lost below the bottom of the screen when scrolling to the bottom of the div.
@@ -26,39 +28,28 @@ function setListingsHeight(windowWidth, windowHeight) {
   if (listings.classList.contains('viewport-twothirds')) {
     listings.classList.remove('viewport-twothirds');
   }
-  // '#sidebarA' div has the 'py12' class which adds 12px of padding to the top and bottom of the rendered body height that 'document.querySelector('#sidebarA').clientHeight' does not catch; add 24
-  const sidebarADivHeight =
-    document.querySelector('#sidebarA').clientHeight + 24;
   let properListingsDivHeight;
+  const sidebarADivHeight = document.querySelector('#sidebarA').clientHeight;
   // Check if the listings breakpoint is active (Listings breakpoint set to shift to bottom when screen width is less that 800px)
   if (windowWidth < 800) {
     // '#listings' div's parent's parent (grandparent?) has the 'viewport-third' class which sets the height at 33.3333vh; multiply the windowHeight by .333333 (1/3 of the viewheight) and subtract the sidebarADivHeight to get the properListingsDivHeight
     properListingsDivHeight = windowHeight * 0.333333 - sidebarADivHeight;
   } else {
-    // When the screen width is greater than 800px, the 'sidebarA' and 'listings' divs should use the entire view height
-    // when displayed on the left, 'sidebarA' div contains 'title' div and 'description' div that have margin and padding classes that 'document.querySelector('#sidebarA').clientHeight' does not catch
-    // 'title' div has the 'mb6' class which adds 6px bottom margin; subtract 6
-    // 'description' div has the 'py12' which adds 12px of padding to the top and bottom of the rendered body height; subtract 24
-    // -6 ('title') - 24 ('description) - 12 (leave 12px gap at bottom of the page) = -42
-    properListingsDivHeight = windowHeight - sidebarADivHeight - 42;
+    // Use the rest of the vertical space
+    properListingsDivHeight = windowHeight - sidebarADivHeight;
   }
   // Set the listings div height to the properListingsDivHeight
   listings.style.height = properListingsDivHeight + 'px';
 }
 
-// Determine the window dimensions
-function getWindowDimensions() {
-  const windowWidth = window.innerWidth;
-  const windowHeight = window.innerHeight;
-  setZoomVariables(windowWidth);
-  setListingsHeight(windowWidth, windowHeight);
-}
+//
+setZoomVariables();
 
-// Call the getWindowDimensions function first to set the appropriate variable values
-getWindowDimensions();
+// Call the getWindowDimensions function on window load
+window.onload = setListingsHeight;
 
 // Evaluate the window dimensions on resize to keep appropriate variable values
-window.onresize = getWindowDimensions;
+window.onresize = setListingsHeight;
 
 mapboxgl.accessToken = config.accessToken;
 const columnHeaders = config.sideBarInfo;

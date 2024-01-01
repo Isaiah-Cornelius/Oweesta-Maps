@@ -42,10 +42,10 @@ function setListingsHeight() {
   listings.style.height = properListingsDivHeight + 'px';
 }
 
-//
+// Set the zoom variables for map load
 setZoomVariables();
 
-// Call the getWindowDimensions function on window load
+// Call the getWindowDimensions function on window load (not an IIFE because the variables wouldn't pick up the proper dimensions; it evaluates the height before client side rendering changes. Using window.onload evaluates height after text wrap, padding, and margins change the element dimensions)
 window.onload = setListingsHeight;
 
 // Evaluate the window dimensions on resize to keep appropriate variable values

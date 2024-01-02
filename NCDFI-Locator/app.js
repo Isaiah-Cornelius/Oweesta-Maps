@@ -594,8 +594,8 @@ map.on('load', () => {
           },
           paint: {
             'circle-radius': 5, // size of circles
-            'circle-color': '#3D2E5D', // color of circles ['get', 'Color']
-            'circle-stroke-color': 'white',
+            'circle-color': ['get', 'Background_Color'], // color of circles ['get', 'Color']
+            'circle-stroke-color': ['get', 'Text'],
             'circle-stroke-width': 1,
             'circle-opacity': 0.7,
           },

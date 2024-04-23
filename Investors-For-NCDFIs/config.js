@@ -8,8 +8,9 @@ const config = {
   CSV: './12.19.2023TopMapInvestors.csv',
   center: [-117, 48],
   zoom: 1,
-  title: 'Investor Locator',
-  description: 'Investors interested in providing capital to NCDFIs',
+  title: 'Investors For NCDFIs',
+  description:
+    'Investors interested in providing capital to Native Community Development Financial Institutions',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],
   popupLocation_Name: ['Org_Name'],
   popupWebsite: ['Website'],

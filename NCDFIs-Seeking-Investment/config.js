@@ -8,8 +8,9 @@ const config = {
   CSV: './12.19.2023TopMapNCDFIs.csv',
   center: [-117, 48],
   zoom: 1,
-  title: 'Native CDFI Locator',
-  description: 'Native Community Development Financial Institutions',
+  title: 'Native CDFIs Seeking Investment',
+  description:
+    'Native Community Development Financial Institutions seeking additional capital.',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],
   popupLocation_Name: ['Org_Name'],
   popupWebsite: ['Website'],

@@ -8,7 +8,7 @@ const config = {
   CSV: './2023CertifiedNCDFIs.csv',
   center: [-117, 48],
   zoom: 1,
-  title: 'Native CDFI Locator',
+  title: 'Certified Native CDFIs',
   description:
     '2023 Certified Native Community Development Financial Institutions of the United States of America.',
   sideBarInfo: ['Location_Name', 'Address', 'City_ST_Zip', 'Phone'],

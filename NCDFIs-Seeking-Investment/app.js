@@ -107,7 +107,7 @@ function createPopup(currentFeature) {
     if (currentFeature.properties[config.popupCurrentlyCertified] === 'Yes') {
       html += '<p> 2023 Certified NCDFI </p>';
     }
-    if (currentFeature.properties[config.popupWebsite].length > 0) {
+    if (currentFeature.properties[config.popupWebsite]) {
       html +=
         '<a href="' +
         currentFeature.properties[config.popupWebsite] +

@@ -8,7 +8,7 @@ const config = {
   CSV: './12.19.2023TopMapNCDFIs.csv',
   center: [-117, 48],
   zoom: 1,
-  title: 'Native CDFIs Seeking Investment',
+  title: 'Native CDFIs Open To Investment',
   description:
     'Native Community Development Financial Institutions seeking additional capital.',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],

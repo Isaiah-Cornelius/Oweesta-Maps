@@ -5,7 +5,7 @@ const config = {
   style: 'mapbox://styles/isaiahcornelius/clqg37fke005y01pz7d7j95wr',
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
-  CSV: './12.19.2023TopMapNCDFIs.csv',
+  CSV: './12.19.2023_NCDFIs_Open_To_Investment.csv',
   center: [-117, 48],
   zoom: 1,
   title: 'Native CDFIs Open To Investment',

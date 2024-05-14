@@ -505,6 +505,9 @@ function applyFilters() {
             case 'HI':
               flyToLocation2([-157.14479404845895, 20.95370568127875], 4);
               break;
+            case 'MD':
+              flyToLocation2([-76.71709309834158, 39.270105116416296], 4);
+              break;
             case 'MN':
               flyToLocation2([-94.32663165607144, 46.22603635718387], 4);
               break;

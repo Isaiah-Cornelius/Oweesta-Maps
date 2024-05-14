@@ -5,7 +5,7 @@ const config = {
   style: 'mapbox://styles/isaiahcornelius/clqg37fke005y01pz7d7j95wr',
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
-  CSV: './5.6.2024TopMapInvestors.csv',
+  CSV: './5.6.2024_Investors_for_NCDFIs.csv',
   center: [-117, 48],
   zoom: 1,
   title: 'Investors For NCDFIs',
@@ -32,7 +32,7 @@ const config = {
       type: 'dropdown',
       title: 'State: ',
       columnHeader: 'State',
-      listItems: ['CA', 'HI', 'MN', 'PA', 'UT', 'VT'],
+      listItems: ['CA', 'HI', 'MD', 'MN', 'PA', 'UT', 'VT'],
     },
   ],
 };

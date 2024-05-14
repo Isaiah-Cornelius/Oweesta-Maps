@@ -10,7 +10,7 @@ const config = {
   zoom: 1,
   title: 'Investors For NCDFIs',
   description:
-    'Investors interested in providing capital to Native Community Development Financial Institutions',
+    'Investors interested in providing capital to Native Community Development Financial Institutions. Updated 5/6/2024',
   sideBarInfo: ['Org_Name', 'Address', 'City_ST_Zip'],
   popupLocation_Name: ['Org_Name'],
   popupWebsite: ['Website'],

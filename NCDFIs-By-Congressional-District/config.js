@@ -2,15 +2,15 @@
 
 // eslint-disable-next-line no-unused-vars
 const config = {
-  style: 'mapbox://styles/isaiahcornelius/clqg37fke005y01pz7d7j95wr',
+  style: 'mapbox://styles/isaiahcornelius/cm8gdvt3b012m01ssagcje82a',
   accessToken:
     'pk.eyJ1IjoiaXNhaWFoY29ybmVsaXVzIiwiYSI6ImNsbzJldHVwdzFmMWEya3FoNGo5ZXoybG8ifQ.P4y494VuvnDyeTQDNtEoDA',
-  CSV: './4.15.2024_CertifiedNCDFIs.csv',
+  CSV: './3.12.2025_CertifiedNCDFIs.csv',
   center: [-117, 48],
   zoom: 1,
   title: 'Certified Native CDFIs',
   description:
-    'Certified Native Community Development Financial Institutions of the United States of America. Updated 03/21/2025',
+    'Certified Native Community Development Financial Institutions of the United States of America by Congressional District. Updated 3/21/2025',
   sideBarInfo: ['Location_Name', 'Address', 'City_ST_Zip', 'Phone'],
   popupLocation_Name: ['Location_Name'],
   popupWebsite: ['Website'],
